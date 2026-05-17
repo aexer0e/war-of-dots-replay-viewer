@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>War of Dots Replay Viewer</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="viewer-area" aria-label="Replay viewer">
+        <canvas id="replayCanvas" aria-label="Replay canvas"></canvas>
+
+        <div class="topbar">
+          <div class="file-controls">
+            <label class="file-button" for="fileInput">Open .rep</label>
+            <input id="fileInput" type="file" accept=".rep,.json,application/json,application/gzip">
+          </div>
+
+          <div class="view-controls" role="group" aria-label="View controls">
+            <button id="fitButton" type="button" title="Fit replay to view" aria-label="Fit replay to view">Fit</button>
+          </div>
+        </div>
+
+        <div id="dropOverlay" class="drop-overlay" hidden>
+          <div>Drop replay file</div>
+        </div>
+
+        <div class="timeline-dock" aria-label="Replay timeline controls">
+          <div class="timeline-meta">
+            <span id="currentTime">00:00</span>
+            <span id="durationTime">00:00</span>
+          </div>
+          <input id="timeline" type="range" min="0" max="1" step="1" value="0" disabled aria-label="Replay timeline">
+        </div>
+
+        <div id="toast" class="toast" role="status" aria-live="polite"></div>
+      </section>
+
+      <aside class="side-panel" aria-label="Replay details and playback controls">
+        <header class="replay-header">
+          <p class="eyebrow">War of Dots</p>
+          <h1 id="replayTitle">Replay Viewer</h1>
+          <p id="replaySubtitle">Open a War of Dots `.rep` file to inspect the match.</p>
+        </header>
+
+        <section class="control-block transport" aria-label="Playback controls">
+          <div class="transport-row">
+            <button id="playButton" class="play-button" type="button" aria-label="Play replay" disabled>
+              <span id="playIcon">Play</span>
+            </button>
+            <button id="resetButton" type="button" title="Reset playback" aria-label="Reset playback">Reset</button>
+          </div>
+          <div class="speed-control">
+            <div class="speed-label-row">
+              <label for="speedRange">Speed</label>
+              <strong id="speedValue">1x</strong>
+            </div>
+            <input id="speedRange" type="range" min="0" max="1" step="0.001" value="0" aria-label="Playback speed">
+          </div>
+        </section>
+
+        <section class="control-block toggles" aria-label="Drawing layers">
+          <label><input id="trailsToggle" type="checkbox" checked> Trails</label>
+          <label><input id="dotsToggle" type="checkbox" checked> Dots</label>
+          <label><input id="zonesToggle" type="checkbox" checked> Power</label>
+          <label><input id="messagesToggle" type="checkbox" checked> Messages</label>
+        </section>
+
+        <section class="info-grid" aria-label="Replay metadata">
+          <div>
+            <span>Map</span>
+            <strong id="mapValue">-</strong>
+          </div>
+          <div>
+            <span>Version</span>
+            <strong id="versionValue">-</strong>
+          </div>
+          <div>
+            <span>Events</span>
+            <strong id="eventsValue">-</strong>
+          </div>
+          <div>
+            <span>Result</span>
+            <strong id="resultValue">-</strong>
+          </div>
+        </section>
+
+        <section class="players-block" aria-label="Players">
+          <h2>Players</h2>
+          <div id="playersList" class="players-list"></div>
+        </section>
+
+        <section class="messages-block" aria-label="Replay messages">
+          <h2>Messages</h2>
+          <div id="messageList" class="message-list"></div>
+        </section>
+      </aside>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
